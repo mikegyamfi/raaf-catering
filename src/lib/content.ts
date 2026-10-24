@@ -308,7 +308,7 @@ export const bakeStages = [
 /**
  * Photo slots. Drop her real photos into /public/photos with these exact
  * file names (or change `src`) and they appear across the site.
- * Until then each slot shows a drawn illustration placeholder.
+ * Until then each slot shows a stand-in stock photo (Unsplash), see README.
  * Photos look best at about 1600px on the long side, saved as WebP or JPG.
  */
 export const photos = {
@@ -319,14 +319,14 @@ export const photos = {
 export const gallery: { id: string; caption: string; illustration: IllustrationName; src: string; ratio: "tall" | "wide" | "square" }[] = [
   { id: "g1", caption: "Meat pies, fresh from the oven", illustration: "pie", src: "/photos/REPLACE-gallery-01.webp", ratio: "tall" },
   { id: "g2", caption: "Party jollof", illustration: "jollof", src: "/photos/REPLACE-gallery-02.webp", ratio: "square" },
-  { id: "g3", caption: "Small chops packs, ready to go", illustration: "springRoll", src: "/photos/REPLACE-gallery-03.webp", ratio: "wide" },
+  { id: "g3", caption: "A small chops platter", illustration: "springRoll", src: "/photos/REPLACE-gallery-03.webp", ratio: "wide" },
   { id: "g4", caption: "Butter bread", illustration: "loaf", src: "/photos/REPLACE-gallery-04.webp", ratio: "square" },
   { id: "g5", caption: "Bofrot", illustration: "bofrot", src: "/photos/REPLACE-gallery-05.webp", ratio: "tall" },
-  { id: "g6", caption: "Vanilla celebration cake", illustration: "cake", src: "/photos/REPLACE-gallery-06.webp", ratio: "square" },
-  { id: "g7", caption: "Banku and grilled tilapia", illustration: "tilapia", src: "/photos/REPLACE-gallery-07.webp", ratio: "wide" },
+  { id: "g6", caption: "Celebration cake", illustration: "cake", src: "/photos/REPLACE-gallery-06.webp", ratio: "square" },
+  { id: "g7", caption: "Grilled tilapia", illustration: "tilapia", src: "/photos/REPLACE-gallery-07.webp", ratio: "wide" },
   { id: "g8", caption: "Marble bread", illustration: "marbleLoaf", src: "/photos/REPLACE-gallery-08.webp", ratio: "tall" },
   { id: "g9", caption: "Chin chin", illustration: "chips", src: "/photos/REPLACE-gallery-09.webp", ratio: "square" },
-  { id: "g10", caption: "Waakye", illustration: "waakye", src: "/photos/REPLACE-gallery-10.webp", ratio: "square" },
+  { id: "g10", caption: "Jollof with grilled chicken", illustration: "jollof", src: "/photos/REPLACE-gallery-10.webp", ratio: "square" },
   { id: "g11", caption: "Chocolate cake", illustration: "chocolateCake", src: "/photos/REPLACE-gallery-11.webp", ratio: "tall" },
   { id: "g12", caption: "Sausage rolls", illustration: "sausageRoll", src: "/photos/REPLACE-gallery-12.webp", ratio: "wide" },
 ];

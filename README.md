@@ -120,3 +120,7 @@ scripts/               dev tools: screenshots, asset generators, export fix
 ---
 
 Source notes: `_source/` holds the original WhatsApp photos, a transcript (`TRANSCRIPT.md`) and the business inventory (`INVENTORY.md`). Design notes are in `PLAN.md`.
+
+## Stand-in photos
+
+Until her own photos are in, the `REPLACE-*.webp` slots hold free stock photos from [Unsplash](https://unsplash.com) (Unsplash License: commercial use allowed, no attribution required). `scripts/fetch-photos.mjs` lists the exact photo for each slot. **They are not her food.** Swap in her real photos before telling customers "this is what we make". The founder slot deliberately shows hands rather than a person, so nobody is mistaken for her.

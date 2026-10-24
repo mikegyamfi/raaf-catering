@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/Button";
 import { RisingDough } from "./RisingDough";
 
 export function ownerAlt() {
-  return isPlaceholder(business.ownerName) ? "The founder of RAAF in her kitchen" : `${business.ownerName}, founder of RAAF, in her kitchen`;
+  // Stand-in photo shows hands shaping dough; switch to the portrait wording once her photo is in
+  return isPlaceholder(business.ownerName) ? "Hands shaping bread dough on a floured table" : `${business.ownerName}, founder of RAAF, in her kitchen`;
 }
 
 /** "About RAAF": her own words, a portrait slot and dough proving beside them. */
