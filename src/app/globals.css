@@ -1,0 +1,452 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Tokens ───────────────────────── */
+:root {
+  /* Palette: dawn in a home kitchen */
+  --flour: #fbf6ee;
+  --flour-deep: #f3eadb;
+  --flour-shade: #e8dcc6;
+  --butter: #f2cf74;
+  --butter-soft: #f8e4ab;
+  --crust: #c7832c;
+  --crust-deep: #a9661d;
+  --toast: #7a4520;
+  --cocoa: #2a1a11;
+  --cocoa-soft: #3d281b;
+  --palm: #1f3d2c;
+  --palm-soft: #2c5440;
+  --milk: #fffdf8;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-micro: 220ms;
+  --dur-reveal: 900ms;
+
+  /* Layout */
+  --gutter: clamp(16px, 2.2vw, 32px);
+  --page-max: 1440px;
+  --header-h: 76px;
+
+  /* Fluid type scale (1.25 → 1.333) */
+  --step--1: clamp(0.75rem, 0.74rem + 0.06vw, 0.8rem);
+  --step-0: clamp(0.92rem, 0.9rem + 0.1vw, 0.97rem);
+  --step-1: clamp(1.04rem, 1rem + 0.24vw, 1.18rem);
+  --step-2: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --step-3: clamp(1.45rem, 1.25rem + 1vw, 1.98rem);
+  --step-4: clamp(1.75rem, 1.4rem + 1.8vw, 2.7rem);
+  --step-5: clamp(2.1rem, 1.55rem + 2.9vw, 3.85rem);
+  --step-6: clamp(2.5rem, 1.65rem + 4.5vw, 5.7rem);
+  --step-hero: clamp(5rem, 0.5rem + 22vw, 24.5rem);
+}
+
+@theme inline {
+  --color-flour: var(--flour);
+  --color-flour-deep: var(--flour-deep);
+  --color-flour-shade: var(--flour-shade);
+  --color-butter: var(--butter);
+  --color-butter-soft: var(--butter-soft);
+  --color-crust: var(--crust);
+  --color-crust-deep: var(--crust-deep);
+  --color-toast: var(--toast);
+  --color-cocoa: var(--cocoa);
+  --color-cocoa-soft: var(--cocoa-soft);
+  --color-palm: var(--palm);
+  --color-palm-soft: var(--palm-soft);
+  --color-milk: var(--milk);
+
+  --font-display: var(--font-montserrat-alt), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --text-step--1: var(--step--1);
+  --text-step-0: var(--step-0);
+  --text-step-1: var(--step-1);
+  --text-step-2: var(--step-2);
+  --text-step-3: var(--step-3);
+  --text-step-4: var(--step-4);
+  --text-step-5: var(--step-5);
+  --text-step-6: var(--step-6);
+
+  --ease-expo: var(--ease-out-expo);
+  --ease-quint: var(--ease-in-out-quint);
+  --ease-spring: var(--ease-spring);
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+body {
+  background: var(--flour);
+  color: var(--cocoa);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.7;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Flour-paper grain, very light, on top of everything, never blocking input */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .42 0 0 0 0 .28 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--butter);
+  color: var(--cocoa);
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--palm);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--butter);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+}
+
+/* ───────────────────────── Layout helpers ───────────────────────── */
+@layer components {
+.shell {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+.measure {
+  max-width: 62ch;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 200;
+  background: var(--palm);
+  color: var(--flour);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition: top var(--dur-micro) var(--ease-out-expo);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+}
+
+/* Text reveal: lines/words are wrapped by SplitText; hidden until JS animates.
+   Without JS (or with reduced motion) everything stays visible. */
+.js-motion [data-reveal]:not(.is-ready) {
+  opacity: 0;
+  /* Safety net: if scripts never run, show the content anyway */
+  animation: reveal-fallback 0s 3.5s forwards;
+}
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Underline that draws on hover */
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 500ms var(--ease-out-expo);
+  padding-bottom: 2px;
+}
+.link-draw:hover,
+.link-draw:focus-visible {
+  background-size: 100% 1.5px;
+}
+
+/* Custom cursor only for fine pointers */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ───────────────────────── Cursor: a pat of butter ───────────────────────── */
+.cursor-dot {
+  display: none;
+  width: 44px;
+  height: 44px;
+  will-change: transform;
+}
+html.has-cursor .cursor-dot {
+  display: block;
+}
+.cursor-dot__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 15px;
+  height: 11px;
+  margin: -5.5px 0 0 -7.5px;
+  border-radius: 3.5px;
+  background: linear-gradient(180deg, #fbe3a0, #f2cf74 55%, #e2a845);
+  box-shadow: inset 0 -2px 0 rgba(169, 102, 29, 0.35), inset 3px 2px 0 -1px rgba(255, 246, 214, 0.9), 0 3px 6px rgba(42, 26, 17, 0.22);
+  transform: rotate(-12deg);
+  transition: transform 400ms var(--ease-out-expo), opacity 250ms var(--ease-out-expo);
+}
+.cursor-dot__melt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0;
+  transform: scale(0.35, 0.3);
+  transform-origin: 50% 35%;
+  filter: drop-shadow(0 3px 4px rgba(42, 26, 17, 0.2));
+  transition: transform 550ms var(--ease-spring), opacity 220ms var(--ease-out-expo);
+}
+.cursor-dot__drop {
+  opacity: 0;
+}
+.cursor-dot[data-state="hover"] .cursor-dot__core {
+  opacity: 0;
+  transform: rotate(-12deg) scale(1.6, 0.6);
+}
+.cursor-dot[data-state="hover"] .cursor-dot__melt {
+  opacity: 1;
+  transform: scale(1);
+}
+.cursor-dot[data-state="hover"] .cursor-dot__drop {
+  animation: butter-drip 1.6s cubic-bezier(0.45, 0, 0.2, 1) 0.35s infinite;
+}
+@keyframes butter-drip {
+  0% { opacity: 0; transform: translateY(-6px) scale(0.6); }
+  25% { opacity: 1; }
+  80% { opacity: 1; transform: translateY(5px) scale(1); }
+  100% { opacity: 0; transform: translateY(9px) scale(0.8); }
+}
+
+/* ───────────────────────── Steam ───────────────────────── */
+.steam path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+  opacity: 0;
+  animation: steam-rise 2.8s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+@keyframes steam-rise {
+  0% { stroke-dashoffset: 90; opacity: 0; transform: translateY(6px); }
+  35% { opacity: 0.75; }
+  100% { stroke-dashoffset: -90; opacity: 0; transform: translateY(-10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .steam path { animation: none; stroke-dashoffset: 0; opacity: 0.5; }
+}
+
+/* ───────────────────────── Bake story ───────────────────────── */
+.bake-texts {
+  min-height: 12.5rem;
+}
+section:not(.bake-static) .bake-text {
+  position: absolute;
+  inset: 0 0 auto 0;
+}
+.bake-static .bake-pin {
+  min-height: 0;
+}
+.bake-static .bake-texts {
+  min-height: 0;
+}
+.bake-static .bake-text + .bake-text {
+  margin-top: 1.75rem;
+}
+.bake-static .bake-text > span:nth-child(2) {
+  font-size: var(--step-3);
+}
+.bake-static .bake-track {
+  display: none;
+}
+.bk-steam path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+  animation: steam-rise-lg 3.2s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+.bk-steam path:nth-child(2) { animation-delay: 0.9s; }
+.bk-steam path:nth-child(3) { animation-delay: 1.7s; }
+@keyframes steam-rise-lg {
+  0% { stroke-dashoffset: 170; opacity: 0; transform: translateY(10px); }
+  35% { opacity: 0.8; }
+  100% { stroke-dashoffset: -170; opacity: 0; transform: translateY(-16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bk-steam path { animation: none; stroke-dashoffset: 0; opacity: 0.6; }
+}
+
+.flour-fall {
+  animation: flour-fall 1.2s linear infinite;
+}
+@keyframes flour-fall {
+  to { stroke-dashoffset: -336; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flour-fall { animation: none; }
+}
+
+
+/* ───────────────────────── Oven glow ───────────────────────── */
+.oven-glow {
+  background: radial-gradient(circle, rgba(255, 196, 102, 0.42), rgba(199, 131, 44, 0.18) 36%, rgba(166, 77, 20, 0.06) 56%, transparent 70%);
+  animation: oven-breathe 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes oven-breathe {
+  from { transform: translate(-50%, -50%) scale(0.94); opacity: 0.8; }
+  to { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oven-glow { animation: none; }
+}
+
+
+.float-soft {
+  animation: float-soft 6s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes float-soft {
+  from { transform: translateY(-8px) rotate(-2deg); }
+  to { transform: translateY(10px) rotate(2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-soft { animation: none; }
+}
+
+/* ───────────────────────── Hero: milk poured over the wheat ───────────────────────── */
+.hero-wordwrap {
+  /* Milk level and ripple drift (animated by GSAP) */
+  --mx: 0em;
+  --my: 0.92em;
+  --reveal: 0%;
+}
+.hw-milk {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='280' viewBox='0 0 140 280'%3E%3Cdefs%3E%3ClinearGradient id='m' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffffff'/%3E%3Cstop offset='.18' stop-color='%23f3eadb'/%3E%3Cstop offset='.55' stop-color='%23dfccab'/%3E%3Cstop offset='1' stop-color='%23cbb08a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 12 C23 3 47 3 70 12 C93 21 117 21 140 12 L140 280 L0 280 Z' fill='url(%23m)'/%3E%3Cpath d='M0 15 C23 6 47 6 70 15 C93 24 117 24 140 15' fill='none' stroke='%23a9814f' stroke-opacity='.7' stroke-width='2.5'/%3E%3Cpath d='M0 12 C23 3 47 3 70 12 C93 21 117 21 140 12' fill='none' stroke='%23ffffff' stroke-width='3'/%3E%3C/svg%3E");
+  background-size: 0.7em 1.4em;
+  background-repeat: repeat-x;
+  background-position: var(--mx) var(--my);
+  /* Only where the stream has already passed */
+  clip-path: inset(-0.2em calc(100% - var(--reveal)) -0.2em -0.2em);
+  pointer-events: none;
+  opacity: 0;
+}
+.hw-jar {
+  position: absolute;
+  /* Above the "Professional Catering Services" line */
+  bottom: calc(100% + 0.08em + 2rem);
+  left: 0;
+  width: max(0.3em, 3.2rem);
+  aspect-ratio: 100 / 130;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 50% 55%;
+  filter: drop-shadow(0 0.02em 0.03em rgba(42, 26, 17, 0.18));
+}
+@media (max-width: 899px) {
+  .hw-jar {
+    bottom: calc(100% + 3.6rem);
+  }
+}
+.hw-jar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.hw-lip {
+  position: absolute;
+  left: 15%;
+  top: 6%;
+  width: 1px;
+  height: 1px;
+}
+.hw-stream {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+
