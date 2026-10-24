@@ -22,11 +22,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - id: pages
         uses: actions/configure-pages@v5
-      - run: npm ci
+      # (npm install rather than npm ci: the lockfile is generated on Windows,
+      # and npm ci rejects it over Linux-only optional packages)
+      - run: npm install --no-audit --no-fund
       - run: npm run build
         env:
           # Serve under https://<user>.github.io/<repo>/
