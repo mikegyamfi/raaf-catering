@@ -31,7 +31,7 @@ export function Promises() {
 
         <div className="relative md:col-span-5">
           <div className="md:sticky md:top-[18svh]">
-            <MilkPour className="mx-auto aspect-[620/758] w-[min(78vw,380px)] md:w-[min(100%,56svh)]" />
+            <MilkPour className="mx-auto aspect-[320/440] w-[min(70vw,360px)] md:w-[min(100%,52svh)]" />
           </div>
         </div>
       </div>

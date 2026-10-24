@@ -120,15 +120,3 @@ scripts/               dev tools: screenshots, asset generators, export fix
 ---
 
 Source notes: `_source/` holds the original WhatsApp photos, a transcript (`TRANSCRIPT.md`) and the business inventory (`INVENTORY.md`). Design notes are in `PLAN.md`.
-
-## Footage
-
-The bake story and the milk glass play real cooking footage frame by frame as you scroll. The clips are from [Mixkit](https://mixkit.co) under the Mixkit free licence (commercial use allowed, no attribution required): sifting flour (#50041), pouring milk (#20032, #8425), mixing butter (#50039), kneading (#42467) and bread baking in the oven (#6787).
-
-The stills live in `public/frames/<stage>/`. To swap a stage for her own video:
-
-```bash
-node scripts/video-frames.mjs extract her-video.mp4 public/frames/knead <startSec> <endSec> 30 1000
-```
-
-This needs Google Chrome installed, which it uses to decode the video. Then set the frame count in `REELS` in `src/components/story/BakeStory.tsx`.

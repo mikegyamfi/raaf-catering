@@ -338,9 +338,31 @@ section:not(.bake-static) .bake-text {
 .bake-static .bake-track {
   display: none;
 }
-.bake-static .bake-canvas { display: none; }
-.bake-static .bake-still { display: block; }
+.bk-steam path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+  animation: steam-rise-lg 3.2s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+.bk-steam path:nth-child(2) { animation-delay: 0.9s; }
+.bk-steam path:nth-child(3) { animation-delay: 1.7s; }
+@keyframes steam-rise-lg {
+  0% { stroke-dashoffset: 170; opacity: 0; transform: translateY(10px); }
+  35% { opacity: 0.8; }
+  100% { stroke-dashoffset: -170; opacity: 0; transform: translateY(-16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bk-steam path { animation: none; stroke-dashoffset: 0; opacity: 0.6; }
+}
 
+.flour-fall {
+  animation: flour-fall 1.2s linear infinite;
+}
+@keyframes flour-fall {
+  to { stroke-dashoffset: -336; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flour-fall { animation: none; }
+}
 
 
 /* ───────────────────────── Oven glow ───────────────────────── */
@@ -428,4 +450,3 @@ section:not(.bake-static) .bake-text {
   pointer-events: none;
 }
 
-.milk-film.is-live .milk-still { display: none; }
