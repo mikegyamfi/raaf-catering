@@ -13,7 +13,7 @@ await p.goto(url, { waitUntil: "networkidle" });
 await p.waitForTimeout(2500);
 const top = await p.evaluate(() => document.querySelector("[aria-labelledby='bake-title']").getBoundingClientRect().top + window.scrollY);
 for (let i = 0; i < 7; i++) {
-  const y = top + height * 0.85 * (i + 0.93);
+  const y = top + height * 0.9 * (i + 0.7);
   await p.evaluate((y) => window.scrollTo(0, y), y);
   await p.waitForTimeout(2600);
   await p.screenshot({ path: `${out}/bake-${width}-${i}.png` });
