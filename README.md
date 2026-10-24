@@ -70,6 +70,12 @@ Save the real photo as WebP **with the same file name** and it appears everywher
 
 ## Deploy
 
+**Currently live on GitHub Pages:** https://mikegyamfi.github.io/raaf-catering/
+
+Every push to `main` rebuilds and redeploys automatically (`.github/workflows/deploy.yml`, about a minute). Pages serves the site under `/raaf-catering`, which the workflow passes in as `NEXT_PUBLIC_BASE_PATH`. Asset paths go through `asset()` in `src/lib/site.ts` so they work there and locally.
+
+Other options:
+
 **Vercel** (simplest): push this folder to GitHub, import it at vercel.com, and accept the defaults. Every push redeploys.
 
 **Netlify**: import the repo with build command `npm run build` and publish directory `out`. Or run `npm run build` and drag the `out` folder onto app.netlify.com/drop.
