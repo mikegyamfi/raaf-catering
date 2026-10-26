@@ -1,4 +1,4 @@
-// Renders favicon/app icons and the Open Graph image from the dev route.
+// Renders favicon/app icons from the dev route (share cards: scripts/make-og.mjs).
 // Usage: node scripts/make-brand.mjs http://localhost:3000
 import { chromium } from "playwright";
 import sharp from "sharp";
@@ -12,7 +12,6 @@ await p.addStyleTag({ content: "body::after{display:none!important} header,foote
 await p.waitForTimeout(2500);
 
 const icon = await p.locator("#brand-icon").screenshot();
-const og = await p.locator("#brand-og").screenshot();
 await b.close();
 
 const rounded = (size) =>
@@ -24,7 +23,6 @@ fs.writeFileSync("public/icon-512.png", await sharp(icon).resize(512, 512).png()
 fs.writeFileSync("public/icon-192.png", await sharp(icon).resize(192, 192).png().toBuffer());
 fs.writeFileSync("public/apple-icon.png", await sharp(icon).resize(180, 180).png().toBuffer());
 fs.writeFileSync("public/icon.png", await roundIcon(96));
-await sharp(og).resize(1200, 630).png({ compressionLevel: 9 }).toFile("public/og.png");
 
 // favicon.ico holding 16, 32 and 48px PNGs
 const sizes = [16, 32, 48];

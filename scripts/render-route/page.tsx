@@ -1,6 +1,7 @@
 // Render route for placeholder photos and brand assets.
 // To regenerate: copy this file to src/app/dev-placeholders/page.tsx, run `npm run dev`,
 // run scripts/make-placeholders.mjs and scripts/make-brand.mjs, then delete the copy.
+// (Share cards don't need this route: see scripts/make-og.mjs.)
 import { Illustration, illustrationNames, type IllustrationName } from "@/components/illustrations";
 import { gallery } from "@/lib/content";
 import { SteamCurl } from "@/components/layout/Wordmark";
@@ -35,15 +36,6 @@ export default function Page() {
         <div style={{ position: "absolute", right: 92, top: 70, width: 70, height: 140, color: "#c7832c", transform: "rotate(18deg)" }}>
           <SteamCurl />
         </div>
-      </div>
-      {/* Open Graph */}
-      <div id="brand-og" style={{ width: 1200, height: 630, background: "radial-gradient(120% 120% at 80% 0%, #fff3d6 0%, #fbf6ee 45%, #f3eadb 100%)", position: "relative", overflow: "hidden", fontFamily: "var(--font-poppins)" }}>
-        <div style={{ position: "absolute", left: 72, top: 78, fontFamily: "var(--font-montserrat-alt)", fontWeight: 600, fontSize: 34, color: "#7a4520", letterSpacing: "-0.015em" }}>Professional Catering Services</div>
-        <div style={{ position: "absolute", left: 60, top: 108, fontFamily: "var(--font-montserrat-alt)", fontWeight: 800, fontSize: 300, lineHeight: 1, letterSpacing: "-0.065em", background: "linear-gradient(180deg,#c7832c 8%,#8a4f17 92%)", WebkitBackgroundClip: "text", color: "transparent", paddingBottom: 20 }}>RAAF</div>
-        <div style={{ position: "absolute", left: 72, bottom: 84, fontFamily: "var(--font-montserrat-alt)", fontWeight: 700, fontSize: 64, letterSpacing: "-0.04em", color: "#2a1a11" }}>Good food. Great moments.</div>
-        <Illustration name="pie" style={{ position: "absolute", right: 40, top: 60, width: 300, height: 300, filter: "drop-shadow(0 30px 30px rgba(42,26,17,0.2))" }} />
-        <Illustration name="bofrot" style={{ position: "absolute", right: 250, top: 262, width: 200, height: 200, filter: "drop-shadow(0 30px 30px rgba(42,26,17,0.2))" }} />
-        <Illustration name="loaf" style={{ position: "absolute", right: 30, top: 330, width: 240, height: 240, filter: "drop-shadow(0 30px 30px rgba(42,26,17,0.2))" }} />
       </div>
       {slots.map((s) => (
         <div

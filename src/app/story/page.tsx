@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { RevealText, RevealMask, RevealGroup } from "@/components/motion/Reveal";
 import { Photo } from "@/components/ui/Photo";
@@ -10,15 +11,17 @@ import { ownerAlt } from "@/components/sections/AboutTeaser";
 import { Illo as Illustration } from "@/components/illustrations/Illo";
 import { about, business, promises, photos } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Our story",
-  description: about.paragraphs[0],
-  alternates: { canonical: "/story/" },
-};
+  description: "RAAF Professional Catering Services is a home-based caterer cooking fresh, hygienic food for your special occasions. Good food brings people together.",
+  path: "/story/",
+  image: "og/story.jpg",
+});
 
 export default function StoryPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd("Our story", "/story/")} />
       <PageIntro title="Our story" lead="A home kitchen, a love of feeding people, and a simple belief: good food brings people together." illustration="loaf" />
 
       {/* Her portrait: given room to breathe */}

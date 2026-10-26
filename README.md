@@ -82,7 +82,17 @@ Other options:
 
 **Any web host**: upload the contents of `out/`.
 
-After deploying, set `business.siteUrl` in `content.ts` to the real domain (used in the sitemap, social previews and search data).
+**The domain is `https://www.raafcatering.com`** (`business.siteUrl` in `content.ts`). Point both `raafcatering.com` and `www.raafcatering.com` at the host, and have the host redirect the bare domain to `www` (Vercel, Netlify and GitHub Pages all offer this in their domain settings). On GitHub Pages, add the custom domain under *Settings → Pages*; the workflow then builds for it automatically.
+
+---
+
+## Search and sharing
+
+- **Canonical links, the sitemap and structured data** always point at `https://www.raafcatering.com`, whichever host is serving the site.
+- **Preview copies stay out of Google.** Any build served from another address (such as the GitHub Pages preview) gets `noindex` and a `robots.txt` that disallows crawling, so it never competes with the real domain. The real domain, with or without `www`, is indexed.
+- **Structured data** (`src/lib/seo.tsx`): the business with its full menu, the website, and breadcrumbs on inner pages. Phone, email, address, hours, delivery area and socials are added automatically once they're filled in `content.ts`, so fill those in. They matter for local search.
+- **Share previews** (WhatsApp, Facebook, X, LinkedIn, iMessage): every page has its own 1200×630 card in `public/og.jpg` and `public/og/*.jpg`, each well under WhatsApp's ~300 KB limit. To change the wording or the food on them, edit `scripts/make-og.mjs` and run `node scripts/make-og.mjs` (needs internet for the fonts).
+- **After launch:** add the site to [Google Search Console](https://search.google.com/search-console) and submit `https://www.raafcatering.com/sitemap.xml`. Set up a free [Google Business Profile](https://www.google.com/business/) too; for a local caterer it brings in more searches than anything on the site itself. If a share preview looks stale, refresh it with the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (this also updates WhatsApp).
 
 ---
 
@@ -112,7 +122,7 @@ scripts/               dev tools: screenshots, asset generators, export fix
 
 1. Copy `scripts/render-route/page.tsx` to `src/app/dev-placeholders/page.tsx`.
 2. Run `npm run dev`.
-3. Run `node scripts/make-illustrations.mjs http://localhost:3000`. Use `make-placeholders.mjs` for the photo placeholders and `make-brand.mjs` for the favicon and social image.
+3. Run `node scripts/make-illustrations.mjs http://localhost:3000`. Use `make-placeholders.mjs` for the photo placeholders and `make-brand.mjs` for the favicon and app icons.
 4. Delete `src/app/dev-placeholders/` again before building.
 
 **Windows note.** `npm run build` runs `scripts/fix-export-paths.mjs` afterwards. It works around a Next.js bug that misnames prefetch files when building on Windows. It does nothing on macOS/Linux.

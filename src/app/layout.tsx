@@ -6,8 +6,9 @@ import { Preloader } from "@/components/motion/Preloader";
 import { Cursor } from "@/components/motion/Cursor";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { business, about, isPlaceholder, hours, menu, categories } from "@/lib/content";
-import { asset, siteUrl } from "@/lib/site";
+import { business } from "@/lib/content";
+import { asset, deployUrl, isProduction, siteUrl } from "@/lib/site";
+import { JsonLd, defaultTitle, pageMetadata, siteDescription, siteJsonLd } from "@/lib/seo";
 
 const display = Montserrat_Alternates({
   variable: "--font-montserrat-alt",
@@ -23,30 +24,26 @@ const body = Poppins({
   display: "swap",
 });
 
-
-const description = "RAAF Professional Catering Services: a home-based caterer making fresh pastries, breads, cakes, small chops and Ghanaian meals for every occasion. Good food. Great moments.";
+// Social defaults for every page; each page sets its own canonical link
+const { openGraph, twitter } = pageMetadata({ description: siteDescription, path: "/" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl + "/"),
-  title: {
-    default: `${business.name} · ${business.legalName}`,
-    template: `%s · ${business.name} Catering`,
-  },
-  description,
+  // Images and icons resolve against wherever this build is served; canonical links always use the real domain
+  metadataBase: new URL(deployUrl + "/"),
+  title: { default: defaultTitle, template: `%s · ${business.name} Catering` },
+  description: siteDescription,
   applicationName: business.legalName,
-  openGraph: {
-    type: "website",
-    siteName: business.legalName,
-    title: `${business.name}: ${business.tagline}`,
-    description,
-    images: [{ url: "og.png", width: 1200, height: 630, alt: "RAAF Professional Catering Services: Good food. Great moments." }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${business.name}: ${business.tagline}`,
-    description,
-    images: ["og.png"],
-  },
+  authors: [{ name: business.legalName, url: siteUrl }],
+  creator: business.legalName,
+  publisher: business.legalName,
+  category: "food",
+  openGraph,
+  twitter,
+  // Preview copies (e.g. GitHub Pages) stay out of search results so they never compete with the real domain
+  robots: isProduction
+    ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } }
+    : { index: false, follow: false },
+  formatDetection: { telephone: false, email: false, address: false },
   icons: {
     icon: [{ url: asset("/favicon.ico"), sizes: "any" }, { url: asset("/icon.png"), type: "image/png", sizes: "96x96" }],
     apple: asset("/apple-icon.png"),
@@ -60,47 +57,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-/** Bakery JSON-LD built only from real details; placeholders are left out. */
-function jsonLd() {
-  const data: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": ["Bakery", "FoodEstablishment"],
-    name: business.legalName,
-    alternateName: business.name,
-    slogan: business.tagline,
-    description: about.paragraphs[0],
-    url: siteUrl,
-    servesCuisine: ["Ghanaian", "Pastries", "Baked goods"],
-    hasMenu: {
-      "@type": "Menu",
-      url: `${siteUrl}/menu/`,
-      hasMenuSection: categories.map((c) => ({
-        "@type": "MenuSection",
-        name: c.label,
-        hasMenuItem: menu.filter((m) => m.category === c.id).map((m) => ({ "@type": "MenuItem", name: m.name, description: m.description })),
-      })),
-    },
-  };
-  if (!isPlaceholder(business.phone)) data.telephone = `+${business.phone}`;
-  if (!isPlaceholder(business.email)) data.email = business.email;
-  if (!isPlaceholder(business.address) || !isPlaceholder(business.area)) {
-    data.address = {
-      "@type": "PostalAddress",
-      ...(isPlaceholder(business.address) ? {} : { streetAddress: business.address }),
-      ...(isPlaceholder(business.area) ? {} : { addressLocality: business.area }),
-      ...(isPlaceholder(business.country) ? {} : { addressCountry: business.country }),
-    };
-  }
-  if (hours) {
-    data.openingHoursSpecification = hours.map((h) => ({ "@type": "OpeningHoursSpecification", dayOfWeek: h.days.map((d) => DAYS[d]), opens: h.open, closes: h.close }));
-  }
-  const socials = business.socials.map((s) => s.href).filter((h) => !isPlaceholder(h));
-  if (socials.length) data.sameAs = socials;
-  return JSON.stringify(data);
-}
-
 // Runs before first paint: lets CSS hide reveal targets only when motion is allowed (no flash)
 const motionScript = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-motion')}catch(e){}`;
 
@@ -109,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd() }} />
+        <JsonLd data={siteJsonLd()} />
       </head>
       <body>
         <a href="#main" className="skip-link">

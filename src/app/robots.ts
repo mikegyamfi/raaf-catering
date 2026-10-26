@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/site";
+import { isProduction, siteUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
 
-const base = siteUrl;
-
 export default function robots(): MetadataRoute.Robots {
-  return { rules: { userAgent: "*", allow: "/" }, sitemap: `${base}/sitemap.xml` };
+  // Preview copies (e.g. GitHub Pages) are kept out of search so they never compete with the real domain
+  if (!isProduction) return { rules: { userAgent: "*", disallow: "/" } };
+  return { rules: { userAgent: "*", allow: "/" }, sitemap: `${siteUrl}/sitemap.xml` };
 }

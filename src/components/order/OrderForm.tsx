@@ -105,7 +105,7 @@ export function OrderForm() {
       window.open(wa, "_blank", "noopener");
       setStatus("handoff");
     } else if (mail) {
-      window.location.href = `${mail}&body=${encodeURIComponent(summary(fd))}`;
+      window.open(`${mail}&body=${encodeURIComponent(summary(fd))}`, "_self");
       setStatus("handoff");
     } else {
       setStatus("unavailable");

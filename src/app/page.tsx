@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/hero/Hero";
 import { Signature } from "@/components/sections/Signature";
 import { BakeStory } from "@/components/story/BakeStory";
@@ -8,6 +9,9 @@ import { Packs } from "@/components/sections/Packs";
 import { AboutTeaser } from "@/components/sections/AboutTeaser";
 import { GalleryTeaser } from "@/components/sections/GalleryTeaser";
 import { OrderCta } from "@/components/sections/OrderCta";
+import { pageMetadata, siteDescription } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({ description: siteDescription, path: "/" });
 
 export default function Home() {
   return (

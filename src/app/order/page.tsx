@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { OrderForm } from "@/components/order/OrderForm";
 import { ContactList } from "@/components/layout/Footer";
@@ -8,11 +9,12 @@ import { Illo as Illustration } from "@/components/illustrations/Illo";
 import { RevealGroup } from "@/components/motion/Reveal";
 import { business, isPlaceholder, whatsappHref, telHref } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Order",
-  description: `Order pastries, small chops packs, cakes, breads and meals from ${business.legalName}. Tell us the date, your guests and what you'd love.`,
-  alternates: { canonical: "/order/" },
-};
+  description: "Order pastries, small chops packs, cakes, breads and Ghanaian meals for your event. Tell RAAF Catering the date, your guests and what you'd love.",
+  path: "/order/",
+  image: "og/order.jpg",
+});
 
 export default function OrderPage() {
   const wa = whatsappHref();
@@ -22,6 +24,7 @@ export default function OrderPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd("Order", "/order/")} />
       <PageIntro title="Let's plan your order" lead="Tell us the date, the number of guests and what you'd love on the table. We'll come back to you to confirm the details." illustration="cake">
         <div className="mt-8 flex flex-wrap gap-3">
           {wa ? (

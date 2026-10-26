@@ -34,7 +34,8 @@ export const business = {
   address: "{{ADDRESS}}",
   country: "{{COUNTRY}}", // dishes suggest Ghana; please confirm
   currency: "{{CURRENCY}}", // e.g. "GH₵"
-  siteUrl: "https://{{DOMAIN}}",
+  /** The live domain (no trailing slash). Used for canonical links, the sitemap and search data. */
+  siteUrl: "https://www.raafcatering.com",
   socials: [
     { label: "Instagram", href: "{{INSTAGRAM_URL}}" },
     { label: "Facebook", href: "{{FACEBOOK_URL}}" },
